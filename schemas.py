@@ -26,3 +26,14 @@ class CourierAdd(BaseModel):
 class CourierDel(BaseModel):
     id: int
     status: bool = False
+
+class CourierEdit(BaseModel):
+    id: int
+    user_id: int | None
+    user_name: str | None
+    city_from: str | None
+    city_to: str | None
+    flight_date: date | None
+    phone: str | None
+    info: str | None
+    status: bool | None

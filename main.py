@@ -4,7 +4,7 @@ from fastapi import Depends, FastAPI, HTTPException, Body
 from fastapi.responses import JSONResponse, FileResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from database import get_session
-from schemas import Courier, CourierAdd, CourierDel
+from schemas import Courier, CourierAdd, CourierDel, CourierEdit
 
 
 app = FastAPI(title="AirCourier",
@@ -62,3 +62,17 @@ async def delete_courier(courier: CourierDel, session: AsyncSession = Depends(ge
     data = CourierDel(**courier.dict())
     await crud.del_courier(session, data)
     return data, JSONResponse(content={"message": "Курьер удален"})
+
+@app.post("/api/couriers/edit")
+async def edit_courier(courier: CourierEdit, session: AsyncSession = Depends(get_session)) -> Any:
+    """
+    Редактирует карточку курьера в базе данных
+
+    <code>/api/couriers/edit</code>
+
+    :param courier:
+    :param session:
+    :return:
+    """
+    data = await crud.edit_courier(session, courier.dict())
+    return data, JSONResponse(content={"message": "Курьер отредактирован"})

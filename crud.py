@@ -29,3 +29,13 @@ async def add_courier(session: AsyncSession, data):
 async def del_courier(session: AsyncSession, data):
     await session.execute(update(Courier).values(status=data.status).where(Courier.id == data.id))
     await session.commit()
+
+async def edit_courier(session: AsyncSession, data):
+    stmt = update(Courier).where(Courier.id == data["id"])
+    for k, v in data.items():
+        if v is not None:
+            stmt = stmt.values({k: v})
+
+    await session.execute(stmt)
+    await session.commit()
+    return data
