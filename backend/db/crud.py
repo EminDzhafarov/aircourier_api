@@ -1,14 +1,14 @@
 import json
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, insert, update
-from models import Courier
+from backend.db.models import Courier
 from datetime import datetime
 
-async def get_courier(session: AsyncSession, city_from: str, city_to: str):
+async def get_courier(session: AsyncSession, data):
     today = datetime.today()
     return (await session.scalars(select(Courier)
-                              .where(Courier.city_from == city_from)
-                              .where(Courier.city_to == city_to)
+                              .where(Courier.city_from == data.city_from)
+                              .where(Courier.city_to == data.city_to)
                               .where(Courier.flight_date >= today).where(Courier.status == True)
                               .order_by(Courier.flight_date))).all()
 

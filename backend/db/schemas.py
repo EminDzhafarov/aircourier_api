@@ -12,6 +12,9 @@ class Courier(BaseModel):
     info: str
     status: bool
 
+class CourierFind(BaseModel):
+    city_from: str
+    city_to: str
 
 class CourierAdd(BaseModel):
     user_id: int
@@ -21,11 +24,7 @@ class CourierAdd(BaseModel):
     flight_date: date
     phone: str
     info: str
-    status: bool
-
-class CourierDel(BaseModel):
-    id: int
-    status: bool = False
+    status: bool | None = True
 
 class CourierEdit(BaseModel):
     id: int
@@ -37,3 +36,7 @@ class CourierEdit(BaseModel):
     phone: str | None
     info: str | None
     status: bool | None
+
+class CourierDel(BaseModel):
+    id: int
+    status: bool = False

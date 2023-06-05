@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, VARCHAR, DATE, Identity, TIMESTAMP, BOOLEAN, BIGINT
 from sqlalchemy.orm import relationship
-from database import Base
+from backend.db.database import Base
 
 # Список курьеров
 class Courier(Base):
